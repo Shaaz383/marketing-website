@@ -24,8 +24,8 @@ router.post('/register', async (req, res) => {
 
     await user.save();
 
-    // Generate JWT Token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    // Generate JWT Token with userId and name
+    const token = jwt.sign({ userId: user._id, name: user.name }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
 
@@ -53,8 +53,8 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ msg: 'Invalid Credentials' });
     }
 
-    // Generate JWT Token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    // Generate JWT Token with userId and name
+    const token = jwt.sign({ userId: user._id, name: user.name }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
 
@@ -65,5 +65,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Export the router
 export default router;
