@@ -7,9 +7,8 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Clear the token
-    window.location.href = '/'; // Redirect to home
+    window.location.href = '/signup'; // Redirect to signup page after logout
   };
-  
 
   return (
     <nav className="bg-gray-800 text-white p-4">
@@ -24,7 +23,6 @@ const Navbar = () => {
             <>
               {/* <span>{user.name}</span> Display user name */}
               <Link to="#" onClick={handleLogout}>Logout</Link>
-
             </>
           ) : (
             <Link to="/signup">Signup/Login</Link>

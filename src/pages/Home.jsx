@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import 'animate.css'; // Animation library
+import { getLoggedInUser } from '../services/authService'; // Import the service
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const user = getLoggedInUser(); // Get the logged-in user
 
   useEffect(() => {
     // Fetch products from Fake API
@@ -21,13 +23,18 @@ const Home = () => {
       <section className="relative h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/src/assets/hero-image.avif')" }}>
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="relative z-10 text-center text-white">
-          <h1 className="text-5xl font-bold animate__animated animate__fadeInDown">Welcome to Our Product</h1>
+          {/* Conditionally render the user's name */}
+          <h1 className="text-5xl font-bold animate__animated animate__fadeInDown">
+            Welcome {user ? user.name : 'Guest'} {/* Fallback to "Guest" if no user is logged in */}
+          </h1>
           <p className="mt-4 animate__animated animate__fadeInUp">Discover the Best Features and Quality Design.</p>
-          
+
           {/* Link to Signup page */}
-          <Link to="/signup">
-            <button className="mt-6 btn-primary animate__animated animate__fadeInUp">Sign Up Now</button>
-          </Link>
+          {!user && ( // Show the sign-up button only if the user is not logged in
+            <Link to="/signup">
+              <button className="mt-6 btn-primary animate__animated animate__fadeInUp">Sign Up Now</button>
+            </Link>
+          )}
         </div>
       </section>
 
